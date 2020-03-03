@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,21 @@ namespace Uva.Allergie.Application
         {
             _dbContext = dbContext;
         }
-        public Task<BaseOutput<string>> CreateProduct(string product)
+        public async Task<BaseOutput<string>> CreateProduct(string product)
         {
             //1.serialize the product
             var productObj = JsonConvert.DeserializeObject<OpenFoodFactProductInfoDto>(product);
+            if(productObj.status.Equals(0))
+                return new BaseOutput<string>
+                {
+                    IsSuccessful = false,
+                    Message = "product not found.",
+                    Payload = product
+                };
             //2.validate the if main fields are present
 
             //3.Save data to db
+            //new product
             var newProductObj = new ProductEntity
             {
                 Barcode = productObj.code,
@@ -40,16 +49,62 @@ namespace Uva.Allergie.Application
                 Creator = productObj.product.creator,
                 Nutriments = JsonConvert.SerializeObject(productObj.product.nutriments),
                 Categories = productObj.product.categories,
+                IngredientText = productObj.product.ingredients_text,
                 RawJson = product
             };
-            var 
+            _dbContext.Products.Add(newProductObj);
+            var productId = await _dbContext.SaveChangesAsync();
+            //new ingredients
+            foreach (var ingredient in productObj.product.ingredients)
+            {
+                var newIngredientObj = new IngredientEntity
+                {
+                    ProductId = productId,
+                    Vegetarian = ingredient.vegetarian,
+                    Vegan = ingredient.vegan,
+                    Text = ingredient.text,
+                    IngreId = ingredient.id,
+                    Percent = ingredient.percent,
+                    Rank = ingredient.rank,
+                    HasSubIngredients = ingredient.has_sub_ingredients
+                };
+
+               _dbContext.Ingredients.Add(newIngredientObj);
+            }
+            await _dbContext.SaveChangesAsync();
+            //new allergy
+
             //4.Return the save data from db
-            throw new NotImplementedException();
+            return new BaseOutput<string>
+            {
+                IsSuccessful = true,
+                Message = "product created",
+                Payload = JsonConvert.SerializeObject(newProductObj)
+            };
         }
 
-        public Task<BaseOutput<string>> GetProductByBarcode(long id)
+        public async Task<BaseOutput<string>> GetProductByBarcode(string barcode)
         {
-            throw new NotImplementedException();
+            var product = await _dbContext.Products
+                .Where(a => a.Barcode == barcode)
+                .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                return new BaseOutput<string>
+                {
+                    IsSuccessful = false,
+                    Message = $"product with barcode = {barcode} not found.",
+                    Payload = ""
+                };
+            }
+
+            return new BaseOutput<string>
+            {
+                IsSuccessful = true,
+                Message = $"product with barcode = {barcode} found.",
+                Payload = JsonConvert.SerializeObject(product)
+            };
         }
 
         public Task<BaseOutput<string>> GetProductById(long id)

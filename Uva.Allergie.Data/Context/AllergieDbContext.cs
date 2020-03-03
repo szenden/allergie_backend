@@ -28,13 +28,23 @@ namespace Uva.Allergie.Data.Context
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
 
-            var EditedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Modified).ToList();
+            var EditedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Modified || E.State == EntityState.Added).ToList();
 
-            //EditedEntities.ForEach(e =>
-            //{
-            //    e.Property("AmDate").CurrentValue = DateTime.Now;
-            //    e.Property("AmBy").CurrentValue = (Database.GetDbConnection()).UserName;
-            //});
+            EditedEntities.ForEach(e =>
+            {
+                switch (e.State)
+                {
+                    case EntityState.Added:
+                        e.Property("CreatedOn").CurrentValue = DateTime.Now;
+                        e.Property("CreatedBy").CurrentValue = "default";
+                        break;
+                    case EntityState.Modified:
+                        e.Property("ModifiedOn").CurrentValue = DateTime.Now;
+                        e.Property("ModifiedBy").CurrentValue = "default";
+                        break;
+                }
+
+            });
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }

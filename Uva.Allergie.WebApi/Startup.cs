@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Uva.Allergie.Application;
+using Uva.Allergie.Application.Contracts;
 using Uva.Allergie.Common.Helpers;
 using Uva.Allergie.Common.Models;
 using Uva.Allergie.Data.Context;
@@ -54,7 +51,8 @@ namespace Uva.Allergie.WebApi
                 .EnableSensitiveDataLogging());
             services.AddScoped((IServiceProvider provider) => _logger);
             services.AddScoped<IAllergieDbContext, AllergieDbContext>()
-                .AddScoped<IWebServiceInvoker, WebServiceInvoker>();
+                .AddScoped<IWebServiceInvoker, WebServiceInvoker>()
+                .AddScoped<IProductAppService, ProductAppService>();
             services.AddTransient<HttpMessageHandler>(x => new HttpClientHandler()
             {
                 ClientCertificateOptions = ClientCertificateOption.Manual,

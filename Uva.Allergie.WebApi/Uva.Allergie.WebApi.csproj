@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Uva.Allergie.Application\Uva.Allergie.Application.csproj" />
     <ProjectReference Include="..\Uva.Allergie.Common\Uva.Allergie.Common.csproj" />
     <ProjectReference Include="..\Uva.Allergie.Data\Uva.Allergie.Data.csproj" />
   </ItemGroup>

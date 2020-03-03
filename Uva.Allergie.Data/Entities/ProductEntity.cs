@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Uva.Allergie.Data.Entities
 {
-    [Table("products", Schema="allergie_dev")]
-    public class ProductEntity
+    [Table("Products", Schema="allergie_dev")]
+    public class ProductEntity : IAuditable
     {
         [Column("product_id")]
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
         [Column("barcode")]
         public string Barcode { get; set; }
         [Column("product_name")]
@@ -33,7 +34,17 @@ namespace Uva.Allergie.Data.Entities
         public string Nutriments { get; set; }
         [Column("categories")]
         public string Categories { get; set; }
+        [Column("ingredients_text")]
+        public string IngredientText { get; set; }
         [Column("raw_json")]
         public string RawJson { get; set; }
+        [Column("created_on")]
+        public DateTime CreatedOn { get; set; }
+        [Column("created_by")]
+        public string CreatedBy { get; set; }
+        [Column("modified_on")]
+        public DateTime ModifiedOn { get; set; }
+        [Column("modified_by")]
+        public string ModifiedBy { get; set; }
     }
 }
