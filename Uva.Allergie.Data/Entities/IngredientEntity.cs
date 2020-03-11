@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Uva.Allergie.Data.Entities
 {
-    [Table("Ingredients", Schema = "allergie_dev")]
+    [Table("ingredients", Schema = "allergie_dev")]
     public class IngredientEntity : IAuditable
     {
         [Column("ingredient_id")]

@@ -13,13 +13,14 @@ namespace Uva.Allergie.Data.Context
     {
         public AllergieDbContext(DbContextOptions<AllergieDbContext> options) : base(options)
         { }
+        public DbSet<AdditiveEntity> Additives { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<AllergyEntity> Allergies { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<IngredientEntity> Ingredients { get; set; }
         public DbSet<HelpTipEntity> HelpTips { get; set; }
         public DbSet<UserAllergyEntity> UserAllergies { get; set; }
-
+        public DbSet<NewsArticleEntity> NewsArticleEntities { get; set; }
         public async Task<bool> CheckConnection()
         {
             return await Database.CanConnectAsync();
@@ -36,11 +37,11 @@ namespace Uva.Allergie.Data.Context
                 {
                     case EntityState.Added:
                         e.Property("CreatedOn").CurrentValue = DateTime.Now;
-                        e.Property("CreatedBy").CurrentValue = "default";
+                        e.Property("CreatedBy").CurrentValue = ((Npgsql.NpgsqlConnection)Database.GetDbConnection()).UserName;
                         break;
                     case EntityState.Modified:
                         e.Property("ModifiedOn").CurrentValue = DateTime.Now;
-                        e.Property("ModifiedBy").CurrentValue = "default";
+                        e.Property("ModifiedBy").CurrentValue = ((Npgsql.NpgsqlConnection)Database.GetDbConnection()).UserName;
                         break;
                 }
 

@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Uva.Allergie.Data.Entities
 {
-    [Table("allergies", Schema = "allergie_dev")]
-    public class AllergyEntity : IAuditable
+    [Table("additives", Schema = "allergie_dev")]
+    public class AdditiveEntity
     {
-        [Column("allergy_id")]
+        [Column("addictive_id")]
         [Key]
-        public int AllergyId { get; set; }
-        [Column("ingredient_id")]
-        public int IngredientId { get; set; }
+        public int AddictiveId { get; set; }
         [Column("url")]
         public string Url { get; set; }
         [Column("name")]
@@ -22,16 +20,6 @@ namespace Uva.Allergie.Data.Entities
         public int Products { get; set; }
         [Column("same_as")]
         public string SameAs { get; set; }
-        [Column("ingredients_with_allergies")]
-        public string IngredientsTextWithAllergens { get; set; }
-        [Column("ingredients_analysis_tags")]
-        public string IngredientsAnalysisTags { get; set; }
-        [Column("allergens_from_ingredients")]
-        public string AllergensFromIngredients { get; set; }
-        [Column("allergens")]
-        public string Allergens { get; set; }
-        [Column("allergens_tags")]
-        public string AllergensTags { get; set; }
         [Column("created_on")]
         public DateTime CreatedOn { get; set; }
         [Column("created_by")]

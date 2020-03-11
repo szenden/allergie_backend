@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Uva.Allergie.Data.Entities
 {
-    [Table("Users", Schema = "allergie_dev")]
+    [Table("users", Schema = "allergie_dev")]
     public class UserEntity : IAuditable
     {
         [Column("user_id")]

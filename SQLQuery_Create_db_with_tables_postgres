@@ -1,0 +1,92 @@
+/* Create database */
+CREATE DATABASE AllergieDB;
+GO
+
+/* Create schema */
+USE AllergieDB;
+GO
+CREATE SCHEMA allergie_dev;
+GO
+
+/* Change to the AllergieDB database */
+USE AllergieDB;
+GO
+
+/* Create tables */
+--drop table allergie_dev.products;
+CREATE TABLE allergie_dev.Products (
+    product_id int GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+    barcode varchar NULL,
+    product_name varchar NULL,
+    brands varchar NULL,
+    nutrition_grades varchar NULL,
+    product_image varchar NULL,
+    product_thumbnail varchar NULL,
+    key_words varchar NULL,
+    nutritient_levels varchar NULL,
+    quantity varchar NULL,
+    creator varchar NULL,
+    nutriments varchar NULL,
+    categories varchar NULL,
+    ingredients_text varchar NULL,
+    additives varchar NULL,
+    allergens varchar null,
+    original_id varchar null,
+    raw_json varchar NULL,
+    created_on timestamp NULL,
+    created_by varchar NULL,
+    modified_on timestamp NULL,
+    modified_by varchar NULL
+);
+--drop TABLE allergie_dev.ingredients;
+CREATE TABLE allergie_dev.Ingredients (
+    ingredient_id int GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+    product_id int NULL,
+    vegetarian varchar NULL,
+    text varchar NULL,
+    vegan varchar NULL,
+    original_ingredient_id varchar NULL,
+    rank int NULL,
+    ing_percent varchar null,
+    has_sub_ingredients varchar NULL,
+    created_on timestamp NULL,
+    created_by varchar NULL,
+    modified_on timestamp NULL,
+    modified_by varchar NULL
+);
+--drop TABLE allergie_dev.allergies;
+CREATE TABLE allergie_dev.Allergies
+ (
+    allergy_id int GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+    ingredient_id int null,
+    url varchar NULL,
+    name varchar NULL,
+    original_id varchar NULL,
+    products int NULL,
+    same_as varchar NULL,
+    ingredients_with_allergies varchar NULL,
+    ingredients_analysis_tags varchar NULL,
+    allergens_from_ingredients varchar NULL,
+    allergens varchar NULL,
+    allergens_tags varchar NULL,
+    created_on timestamp NULL,
+    created_by varchar NULL,
+    modified_on timestamp NULL,
+    modified_by varchar NULL
+);
+
+
+--drop TABLE allergie_dev.additives;
+CREATE TABLE allergie_dev.Additives
+ (
+    addictive_id int GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+    url varchar NULL,
+    name varchar NULL,
+    original_id varchar NULL,
+    products int NULL,
+    same_as varchar NULL,
+    created_on timestamp NULL,
+    created_by varchar NULL,
+    modified_on timestamp NULL,
+    modified_by varchar NULL
+);

@@ -46,13 +46,18 @@ namespace Uva.Allergie.WebApi
             {
                 Configuration.Bind(options);
             });
+            //services.AddDbContextPool<AllergieDbContext>(
+            //    options => options.UseSqlServer(Configuration.GetConnectionString("Default"))
+            //    .EnableSensitiveDataLogging());
             services.AddDbContextPool<AllergieDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("Default"))
+                options => options.UseNpgsql(Configuration.GetConnectionString("Default"))
                 .EnableSensitiveDataLogging());
             services.AddScoped((IServiceProvider provider) => _logger);
             services.AddScoped<IAllergieDbContext, AllergieDbContext>()
                 .AddScoped<IWebServiceInvoker, WebServiceInvoker>()
-                .AddScoped<IProductAppService, ProductAppService>();
+                .AddScoped<IProductAppService, ProductAppService>()
+                .AddScoped<IFoodFactsAppService, FoodFactAppService>()
+                .AddScoped<INewsAppService, NewsAppService>();
             services.AddTransient<HttpMessageHandler>(x => new HttpClientHandler()
             {
                 ClientCertificateOptions = ClientCertificateOption.Manual,

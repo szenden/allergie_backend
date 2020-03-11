@@ -20,12 +20,12 @@ namespace Uva.Allergie.Application
         {
             _dbContext = dbContext;
         }
-        public async Task<BaseOutput<string>> CreateProduct(string product)
+        public async Task<BaseOutput<object>> CreateProduct(string product)
         {
             //1.serialize the product
             var productObj = JsonConvert.DeserializeObject<OpenFoodFactProductInfoDto>(product);
             if(productObj.status.Equals(0))
-                return new BaseOutput<string>
+                return new BaseOutput<object>
                 {
                     IsSuccessful = false,
                     Message = "product not found.",
@@ -37,6 +37,7 @@ namespace Uva.Allergie.Application
             //new product
             var newProductObj = new ProductEntity
             {
+                OriginalId = productObj.product.id,
                 Barcode = productObj.code,
                 ProductName = productObj.product.product_name,
                 Brands = productObj.product.brands,
@@ -50,6 +51,8 @@ namespace Uva.Allergie.Application
                 Nutriments = JsonConvert.SerializeObject(productObj.product.nutriments),
                 Categories = productObj.product.categories,
                 IngredientText = productObj.product.ingredients_text,
+                Additives = string.Join(",",productObj.product.additives_tags),
+                Allergens = string.Join(",", productObj.product.allergens_tags),
                 RawJson = product
             };
             _dbContext.Products.Add(newProductObj);
@@ -75,15 +78,15 @@ namespace Uva.Allergie.Application
             //new allergy
 
             //4.Return the save data from db
-            return new BaseOutput<string>
+            return new BaseOutput<object>
             {
                 IsSuccessful = true,
                 Message = "product created",
-                Payload = JsonConvert.SerializeObject(newProductObj)
+                Payload = newProductObj
             };
         }
 
-        public async Task<BaseOutput<string>> GetProductByBarcode(string barcode)
+        public async Task<BaseOutput<object>> GetProductByBarcode(string barcode)
         {
             var product = await _dbContext.Products
                 .Where(a => a.Barcode == barcode)
@@ -91,7 +94,7 @@ namespace Uva.Allergie.Application
 
             if (product == null)
             {
-                return new BaseOutput<string>
+                return new BaseOutput<object>
                 {
                     IsSuccessful = false,
                     Message = $"product with barcode = {barcode} not found.",
@@ -99,20 +102,45 @@ namespace Uva.Allergie.Application
                 };
             }
 
-            return new BaseOutput<string>
+            var productStr = JsonConvert.SerializeObject(product);
+            var productInfo = new ProductOutput
+            {
+                ProductInfo = JsonConvert.DeserializeObject<ProductInfo>(productStr)
+            };
+
+            var ingredients = await _dbContext.Ingredients
+                .Where(a => a.ProductId == product.Id)
+                .ToListAsync();
+            var ingredientsStr = JsonConvert.SerializeObject(ingredients);
+            productInfo.Ingredients = JsonConvert.DeserializeObject<List<IngredientOutput>>(ingredientsStr);
+
+            var additives = await _dbContext.Additives
+                .Where(a => product.Additives.Contains(a.OriginalId))
+                .ToListAsync();
+            var additivesStr = JsonConvert.SerializeObject(additives);
+            productInfo.Additives = JsonConvert.DeserializeObject<List<AdditiveOutput>>(additivesStr);
+
+            var allergens = await _dbContext.Allergies
+                .Where(a => product.Allergens.Contains(a.OriginalId))
+                .ToListAsync();
+            var allergenStr = JsonConvert.SerializeObject(allergens);
+            productInfo.Allergens = JsonConvert.DeserializeObject<List<AllergyOutput>>(allergenStr);
+
+
+            return new BaseOutput<object>
             {
                 IsSuccessful = true,
                 Message = $"product with barcode = {barcode} found.",
-                Payload = JsonConvert.SerializeObject(product)
+                Payload = productInfo
             };
         }
 
-        public Task<BaseOutput<string>> GetProductById(long id)
+        public Task<BaseOutput<object>> GetProductById(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<BaseOutput<string>> UpdateProduct(long id, string product)
+        public Task<BaseOutput<object>> UpdateProduct(long id, string product)
         {
             throw new NotImplementedException();
         }

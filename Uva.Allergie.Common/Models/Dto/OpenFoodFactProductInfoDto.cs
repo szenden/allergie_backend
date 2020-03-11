@@ -905,58 +905,58 @@ namespace Uva.Allergie.Common.Models.Dto
 
     public class Nutriments
     {
-        public int salt_serving { get; set; }
+        public string salt_serving { get; set; }
         public string energykcal_unit { get; set; }
-        public int nutritionscoreuk { get; set; }
+        public string nutritionscoreuk { get; set; }
         public string sodium_unit { get; set; }
-        public int saturatedfat { get; set; }
+        public string saturatedfat { get; set; }
         public string carbohydrates_unit { get; set; }
-        public int energykcal { get; set; }
-        public int energy_value { get; set; }
+        public string energykcal { get; set; }
+        public string energy_value { get; set; }
         public string sugars_unit { get; set; }
-        public float sugars_value { get; set; }
-        public int nutritionscorefr_100g { get; set; }
-        public int fat_value { get; set; }
-        public float carbohydrates { get; set; }
-        public float carbohydrates_serving { get; set; }
+        public string sugars_value { get; set; }
+        public string nutritionscorefr_100g { get; set; }
+        public string fat_value { get; set; }
+        public string carbohydrates { get; set; }
+        public string carbohydrates_serving { get; set; }
         public string proteins_unit { get; set; }
         public string saturatedfat_unit { get; set; }
-        public int energykcal_serving { get; set; }
-        public int novagroup_serving { get; set; }
-        public int proteins_100g { get; set; }
-        public int saturatedfat_serving { get; set; }
-        public float sugars_100g { get; set; }
-        public int energy_100g { get; set; }
-        public int fat_serving { get; set; }
-        public float sugars_serving { get; set; }
-        public int nutritionscoreuk_100g { get; set; }
-        public int sodium_value { get; set; }
-        public int sodium_100g { get; set; }
-        public int energy { get; set; }
+        public string energykcal_serving { get; set; }
+        public string novagroup_serving { get; set; }
+        public string proteins_100g { get; set; }
+        public string saturatedfat_serving { get; set; }
+        public string sugars_100g { get; set; }
+        public string energy_100g { get; set; }
+        public string fat_serving { get; set; }
+        public string sugars_serving { get; set; }
+        public string nutritionscoreuk_100g { get; set; }
+        public string sodium_value { get; set; }
+        public string sodium_100g { get; set; }
+        public string energy { get; set; }
         public string salt_unit { get; set; }
-        public int fat { get; set; }
+        public string fat { get; set; }
         public string fat_unit { get; set; }
-        public int energykcal_100g { get; set; }
-        public float carbohydrates_value { get; set; }
-        public float sugars { get; set; }
-        public int saturatedfat_100g { get; set; }
-        public int salt_value { get; set; }
-        public int energy_serving { get; set; }
-        public int proteins_serving { get; set; }
-        public int nutritionscorefr { get; set; }
-        public int salt_100g { get; set; }
-        public int novagroup_100g { get; set; }
-        public int proteins_value { get; set; }
-        public int saturatedfat_value { get; set; }
-        public int energykcal_value { get; set; }
-        public float carbohydrates_100g { get; set; }
+        public string energykcal_100g { get; set; }
+        public string carbohydrates_value { get; set; }
+        public string sugars { get; set; }
+        public string saturatedfat_100g { get; set; }
+        public string salt_value { get; set; }
+        public string energy_serving { get; set; }
+        public string proteins_serving { get; set; }
+        public string nutritionscorefr { get; set; }
+        public string salt_100g { get; set; }
+        public string novagroup_100g { get; set; }
+        public string proteins_value { get; set; }
+        public string saturatedfat_value { get; set; }
+        public string energykcal_value { get; set; }
+        public string carbohydrates_100g { get; set; }
         public string energy_unit { get; set; }
-        public int sodium { get; set; }
-        public int salt { get; set; }
-        public int proteins { get; set; }
-        public int fat_100g { get; set; }
-        public int sodium_serving { get; set; }
-        public int novagroup { get; set; }
+        public string sodium { get; set; }
+        public string salt { get; set; }
+        public string proteins { get; set; }
+        public string fat_100g { get; set; }
+        public string sodium_serving { get; set; }
+        public string novagroup { get; set; }
     }
 
     public class Languages_Codes

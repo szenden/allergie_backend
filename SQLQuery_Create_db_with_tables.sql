@@ -29,6 +29,9 @@ CREATE TABLE allergie_dev.Products (
     nutriments nvarchar(max) NULL,
     categories nvarchar(max) NULL,
     ingredients_text nvarchar(max) NULL,
+    additives nvarchar(max) NULL,
+    allergens nvarchar(max) null,
+    original_id nvarchar(max) null,
     raw_json nvarchar(max) NULL,
     created_on datetime2 NULL,
     created_by nvarchar(max) NULL,
@@ -56,11 +59,32 @@ CREATE TABLE allergie_dev.Allergies
  (
     allergy_id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
     ingredient_id int null,
+    url nvarchar(max) NULL,
+    name nvarchar(max) NULL,
+    original_id nvarchar(max) NULL,
+    products int NULL,
+    same_as nvarchar(max) NULL,
     ingredients_with_allergies nvarchar(max) NULL,
     ingredients_analysis_tags nvarchar(max) NULL,
     allergens_from_ingredients nvarchar(max) NULL,
     allergens nvarchar(max) NULL,
     allergens_tags nvarchar(max) NULL,
+    created_on datetime2 NULL,
+    created_by nvarchar(max) NULL,
+    modified_on datetime2 NULL,
+    modified_by nvarchar(max) NULL
+);
+GO
+
+-- drop TABLE allergie_dev.Additives;
+CREATE TABLE allergie_dev.Additives
+ (
+    addictive_id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    url nvarchar(max) NULL,
+    name nvarchar(max) NULL,
+    original_id nvarchar(max) NULL,
+    products int NULL,
+    same_as nvarchar(max) NULL,
     created_on datetime2 NULL,
     created_by nvarchar(max) NULL,
     modified_on datetime2 NULL,
