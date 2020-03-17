@@ -90,3 +90,11 @@ CREATE TABLE allergie_dev.Additives
     modified_on timestamp NULL,
     modified_by varchar NULL
 );
+
+
+CREATE TABLE allergie_dev.allergicwikipedia(
+	allergicwiki_id int GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+	Name varchar NULL,
+	Potential_Reactions varchar NULL,
+	Remaks varchar NULL
+); 

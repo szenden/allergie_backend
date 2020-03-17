@@ -43,7 +43,7 @@ namespace Uva.Allergie.Application
                     PublishedAt = article.publishedAt,
                     Content = article.content
                 };
-                _dbContext.NewsArticleEntities.Add(newsArticleEntity);
+                _dbContext.NewsArticles.Add(newsArticleEntity);
             }
             await _dbContext.SaveChangesAsync();
 
@@ -57,7 +57,7 @@ namespace Uva.Allergie.Application
 
         public async Task<BaseOutput<object>> GeNews(int page = 1, int pageSize = 10)
         {
-            var article = await _dbContext.NewsArticleEntities
+            var article = await _dbContext.NewsArticles
                 .OrderByDescending(a => a.PublishedAt)
                 .Take(pageSize*page)
                 .ToListAsync();
@@ -82,7 +82,7 @@ namespace Uva.Allergie.Application
         }
         public async Task<BaseOutput<object>> GeNewsById(int id)
         {
-            var article = await _dbContext.NewsArticleEntities
+            var article = await _dbContext.NewsArticles
                 .Where(a => a.ArticleId == id)
                 .FirstOrDefaultAsync();
 

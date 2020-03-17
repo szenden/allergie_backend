@@ -869,38 +869,38 @@ namespace Uva.Allergie.Common.Models.Dto
 
     public class Nutriscore_Data
     {
-        public int fruits_vegetables_nuts_colza_walnut_olive_oils_points { get; set; }
-        public int energy_value { get; set; }
+        public float fruits_vegetables_nuts_colza_walnut_olive_oils_points { get; set; }
+        public float energy_value { get; set; }
         public float sugars_value { get; set; }
-        public int sodium_points { get; set; }
-        public int fiber { get; set; }
-        public int is_water { get; set; }
-        public int saturated_fat_value { get; set; }
-        public int proteins_points { get; set; }
-        public int sodium_value { get; set; }
-        public int saturated_fat { get; set; }
-        public int energy_points { get; set; }
-        public int saturated_fat_ratio_value { get; set; }
-        public int fiber_value { get; set; }
-        public int score { get; set; }
-        public int is_cheese { get; set; }
-        public int fruits_vegetables_nuts_colza_walnut_olive_oils { get; set; }
-        public int fiber_points { get; set; }
+        public float sodium_points { get; set; }
+        public float fiber { get; set; }
+        public float is_water { get; set; }
+        public float saturated_fat_value { get; set; }
+        public float proteins_points { get; set; }
+        public float sodium_value { get; set; }
+        public float saturated_fat { get; set; }
+        public float energy_points { get; set; }
+        public float saturated_fat_ratio_value { get; set; }
+        public float fiber_value { get; set; }
+        public float score { get; set; }
+        public float is_cheese { get; set; }
+        public float fruits_vegetables_nuts_colza_walnut_olive_oils { get; set; }
+        public float fiber_points { get; set; }
         public float sugars { get; set; }
-        public int energy { get; set; }
-        public int saturated_fat_points { get; set; }
+        public float energy { get; set; }
+        public float saturated_fat_points { get; set; }
         public string grade { get; set; }
-        public int fruits_vegetables_nuts_colza_walnut_olive_oils_value { get; set; }
-        public int saturated_fat_ratio { get; set; }
-        public int is_beverage { get; set; }
-        public int proteins { get; set; }
-        public int sugars_points { get; set; }
-        public int is_fat { get; set; }
-        public int saturated_fat_ratio_points { get; set; }
-        public int proteins_value { get; set; }
-        public int positive_points { get; set; }
-        public int sodium { get; set; }
-        public int negative_points { get; set; }
+        public float fruits_vegetables_nuts_colza_walnut_olive_oils_value { get; set; }
+        public float saturated_fat_ratio { get; set; }
+        public float is_beverage { get; set; }
+        public float proteins { get; set; }
+        public float sugars_points { get; set; }
+        public float is_fat { get; set; }
+        public float saturated_fat_ratio_points { get; set; }
+        public float proteins_value { get; set; }
+        public float positive_points { get; set; }
+        public float sodium { get; set; }
+        public float negative_points { get; set; }
     }
 
     public class Nutriments

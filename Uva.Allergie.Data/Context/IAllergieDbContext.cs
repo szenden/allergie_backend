@@ -14,7 +14,8 @@ namespace Uva.Allergie.Data.Context
         DbSet<IngredientEntity> Ingredients { get; set; }
         DbSet<HelpTipEntity> HelpTips { get; set; }
         DbSet<UserAllergyEntity> UserAllergies { get; set; }
-        DbSet<NewsArticleEntity> NewsArticleEntities { get; set; }
+        DbSet<NewsArticleEntity> NewsArticles { get; set; }
+        DbSet<WikiAllergyEntity> WikiAllergies { get; set; }
         Task<bool> CheckConnection();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

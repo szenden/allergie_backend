@@ -56,8 +56,10 @@ namespace Uva.Allergie.Application
                 RawJson = product
             };
             _dbContext.Products.Add(newProductObj);
-            var productId = await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
+            var productId = newProductObj.Id;
             //new ingredients
+            var listOfIngredientEntity = new List<IngredientEntity>();
             foreach (var ingredient in productObj.product.ingredients)
             {
                 var newIngredientObj = new IngredientEntity
@@ -72,8 +74,9 @@ namespace Uva.Allergie.Application
                     HasSubIngredients = ingredient.has_sub_ingredients
                 };
 
-               _dbContext.Ingredients.Add(newIngredientObj);
+                listOfIngredientEntity.Add(newIngredientObj);
             }
+            _dbContext.Ingredients.AddRange(listOfIngredientEntity);
             await _dbContext.SaveChangesAsync();
             //new allergy
 
@@ -120,12 +123,24 @@ namespace Uva.Allergie.Application
             var additivesStr = JsonConvert.SerializeObject(additives);
             productInfo.Additives = JsonConvert.DeserializeObject<List<AdditiveOutput>>(additivesStr);
 
+            var splitAllergens = product.Allergens.Split(new char[] { ',' });
             var allergens = await _dbContext.Allergies
-                .Where(a => product.Allergens.Contains(a.OriginalId))
+                .Where(a => splitAllergens.Contains(a.OriginalId))
                 .ToListAsync();
+
             var allergenStr = JsonConvert.SerializeObject(allergens);
             productInfo.Allergens = JsonConvert.DeserializeObject<List<AllergyOutput>>(allergenStr);
 
+            var wikiAllergens = await _dbContext.WikiAllergies.ToListAsync();
+            foreach (var wikiAllergy in wikiAllergens)
+            {
+                var selected = productInfo.Allergens.Where(a => a.Name.Contains(wikiAllergy.Name)).ToList();
+                selected.ForEach(a =>
+                {
+                    a.PotentialReactions = wikiAllergy.PotentialReactions;
+                    a.Remarks = wikiAllergy.Remarks;
+                });
+            }
 
             return new BaseOutput<object>
             {

@@ -41,4 +41,18 @@ namespace Uva.Allergie.Data.Entities
         [Column("modified_by")]
         public string ModifiedBy { get; set; }
     }
+
+   [Table("allergicwikipedia", Schema = "allergie_dev")]
+    public class WikiAllergyEntity
+    {
+        [Column("allergicwiki_id")]
+        [Key]
+        public int AllergyWikiId { get; set; }
+        [Column("name")]
+        public string Name { get; set; }
+        [Column("potential_reactions")]
+        public string PotentialReactions { get; set; }
+        [Column("remaks")]
+        public string Remarks { get; set; }
+    }
 }

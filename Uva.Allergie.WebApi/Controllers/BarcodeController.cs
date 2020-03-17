@@ -43,7 +43,7 @@ namespace Uva.Allergie.WebApi.Controllers
                 };
             }
             //first check for product in db
-            var getProduct = await _productAppService.GetProductByBarcode(input.Barcode.ToString());
+            var getProduct = await _productAppService.GetProductByBarcode(input.Barcode);
             if (getProduct.IsSuccessful)
                 return getProduct;
 
@@ -55,7 +55,7 @@ namespace Uva.Allergie.WebApi.Controllers
 
             if (saveProduct.IsSuccessful)
             {
-                getProduct = await _productAppService.GetProductByBarcode(input.Barcode.ToString());
+                getProduct = await _productAppService.GetProductByBarcode(input.Barcode);
                 return getProduct;
             }
 

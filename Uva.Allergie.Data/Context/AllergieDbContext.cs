@@ -20,7 +20,8 @@ namespace Uva.Allergie.Data.Context
         public DbSet<IngredientEntity> Ingredients { get; set; }
         public DbSet<HelpTipEntity> HelpTips { get; set; }
         public DbSet<UserAllergyEntity> UserAllergies { get; set; }
-        public DbSet<NewsArticleEntity> NewsArticleEntities { get; set; }
+        public DbSet<NewsArticleEntity> NewsArticles { get; set; }
+        public DbSet<WikiAllergyEntity> WikiAllergies { get; set; }
         public async Task<bool> CheckConnection()
         {
             return await Database.CanConnectAsync();

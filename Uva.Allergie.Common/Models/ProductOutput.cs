@@ -66,6 +66,8 @@ namespace Uva.Allergie.Common.Models
         public string AllergensFromIngredients { get; set; }
         public string Allergens { get; set; }
         public string AllergensTags { get; set; }
+        public string PotentialReactions { get; set; }
+        public string Remarks { get; set; }
     }
 
     public class AdditiveOutput
