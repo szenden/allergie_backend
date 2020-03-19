@@ -4,6 +4,7 @@ namespace Uva.Allergie.Common.Models
 {
     public class ArticleOutput
     {
+        public int ArticleId { get; set; }
         public string Source { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
