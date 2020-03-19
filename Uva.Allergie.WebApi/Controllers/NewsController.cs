@@ -62,5 +62,13 @@ namespace Uva.Allergie.WebApi.Controllers
             var getNews = await _newsAppService.GeNews(page, pageSize);
             return getNews;
         }
+
+        [HttpGet("GetById")]
+        public async Task<BaseOutput<object>> GetById(int id)
+        {
+            //first check for product in db
+            var getNews = await _newsAppService.GeNewsById(id);
+            return getNews;
+        }
     }
 }
