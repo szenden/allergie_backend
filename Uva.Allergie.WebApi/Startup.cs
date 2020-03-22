@@ -57,6 +57,7 @@ namespace Uva.Allergie.WebApi
                 .AddScoped<IWebServiceInvoker, WebServiceInvoker>()
                 .AddScoped<IProductAppService, ProductAppService>()
                 .AddScoped<IFoodFactsAppService, FoodFactAppService>()
+                .AddScoped<IUserAppService, UserAppService>()
                 .AddScoped<INewsAppService, NewsAppService>();
             services.AddTransient<HttpMessageHandler>(x => new HttpClientHandler()
             {

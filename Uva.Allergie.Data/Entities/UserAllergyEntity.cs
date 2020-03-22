@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Uva.Allergie.Data.Entities
 {
@@ -10,9 +8,9 @@ namespace Uva.Allergie.Data.Entities
     public class UserAllergyEntity : IAuditable
     {
         [Column("user_id")]
-        [Key]
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public virtual UserEntity User { get; set; }
+        [Column("allergy_id")]
         public int AllergyId { get; set; }
         public virtual AllergyEntity Allergy { get; set; }
         [Column("created_on")]

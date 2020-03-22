@@ -11,10 +11,23 @@ namespace Uva.Allergie.Data.Entities
     {
         [Column("user_id")]
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+        [Column("first_name")]
         public string FirstName { get; set; }
+        [Column("email")]
         public string Email { get; set; }
-        public string ProfileImage { get; set; }
+        [Column("email_verified")]
+        public bool EmailVerified { get; set; }
+        [Column("last_name")]
+        public string LastName { get; set; }
+        [Column("uid")]
+        public string UserUID { get; set; }
+        [Column("provider")]
+        public string Provider { get; set; }
+        [Column("picture_url")]
+        public string PictureUrl { get; set; }
+        [Column("locale")]
+        public string Locale { get; set; }
         [Column("created_on")]
         public DateTime CreatedOn { get; set; }
         [Column("created_by")]

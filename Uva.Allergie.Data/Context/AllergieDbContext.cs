@@ -27,6 +27,12 @@ namespace Uva.Allergie.Data.Context
             return await Database.CanConnectAsync();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserAllergyEntity>()
+                .HasKey(o => new { o.UserId, o.AllergyId });
+        }
+
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
 

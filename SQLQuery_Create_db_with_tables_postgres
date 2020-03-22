@@ -98,3 +98,32 @@ CREATE TABLE allergie_dev.allergicwikipedia(
 	Potential_Reactions varchar NULL,
 	Remaks varchar NULL
 ); 
+
+--User
+CREATE TABLE allergie_dev.Users
+ (
+    user_id int GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+    uid varchar NULL,
+    email varchar NULL,
+    email_verified boolean NULL,
+    first_name varchar NULL,
+    last_name varchar NULL,
+	provider varchar NULL,
+	picture_url varchar NULL,
+	locale varchar NULL,
+    created_on timestamp NULL,
+    created_by varchar NULL,
+    modified_on timestamp NULL,
+    modified_by varchar NULL
+);
+
+--UserAllergies
+CREATE TABLE allergie_dev.user_allergies
+ (
+    user_Id int NULL,
+	allergy_id int NULL,
+    created_on timestamp NULL,
+    created_by varchar NULL,
+    modified_on timestamp NULL,
+    modified_by varchar NULL
+);
