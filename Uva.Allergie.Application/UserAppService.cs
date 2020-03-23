@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Uva.Allergie.Application.Contracts;
 using Uva.Allergie.Common.Models;
+using Uva.Allergie.Common.Models.Dto;
 using Uva.Allergie.Data.Context;
 using Uva.Allergie.Data.Entities;
 
@@ -64,27 +65,33 @@ namespace Uva.Allergie.Application
                 await _dbContext.SaveChangesAsync();
             }
 
+            var userStr = JsonConvert.SerializeObject(userEntity);
+            var user = JsonConvert.DeserializeObject<UserDto>(userStr);
+
             return new BaseOutput<object>
             {
                 IsSuccessful = true,
                 Message = "user created",
-                Payload = userEntity
+                Payload = user
             };
         }
 
         public async Task<BaseOutput<object>> GetUserByUid(string uid)
         {
-            var user = await _dbContext.Users
+            var userEnt = await _dbContext.Users
                 .Where(u => u.UserUID == uid)
                 .SingleOrDefaultAsync();
 
-            if(user == null)
+            if (userEnt == null)
                 return new BaseOutput<object>
                 {
                     IsSuccessful = false,
                     Message = "user not found",
                     Payload = null
                 };
+
+            var userStr = JsonConvert.SerializeObject(userEnt);
+            var user = JsonConvert.DeserializeObject<UserDto>(userStr);
 
             return new BaseOutput<object>
             {

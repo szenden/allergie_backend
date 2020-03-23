@@ -51,5 +51,31 @@ namespace Uva.Allergie.WebApi.Controllers
             
             return Ok(allergy);
         }
+
+        [HttpGet("getuserallergies")]
+        public async Task<ActionResult<BaseOutput<object>>> GetUserAllergies(string uid)
+        {
+            var allergy = await _allergyAppService.GetUserAllergies(uid);
+
+            if (!allergy.IsSuccessful)
+            {
+                return BadRequest(allergy);
+            }
+
+            return Ok(allergy);
+        }
+
+        [HttpPost("updateuserallergies")]
+        public async Task<ActionResult<BaseOutput<object>>> UpdateUserAllergies(string uid, [FromBody] List<int> Ids)
+        {
+            var allergy = await _allergyAppService.UpdateUserAllergies(uid, Ids);
+
+            if (!allergy.IsSuccessful)
+            {
+                return BadRequest(allergy);
+            }
+
+            return Ok(allergy);
+        }
     }
 }

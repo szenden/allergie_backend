@@ -4,7 +4,13 @@ namespace Uva.Allergie.Common.Models.Dto
 {
     public class AllergyAllDto 
     { 
-        public List<AllergyDto> Allergies { get; set; }
+        public List<Allergy> Allergies { get; set; }
+    }
+    public class Allergy
+    {
+        public int AllergyId { get; set; }
+        public string Name { get; set; }
+        public bool isChecked { get; set; }
     }
 
     public class AllergyDto
