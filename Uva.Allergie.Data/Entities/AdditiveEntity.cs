@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Uva.Allergie.Data.Entities
 {
     [Table("additives", Schema = "allergie_dev")]
-    public class AdditiveEntity
+    public class AdditiveEntity : IAuditable
     {
         [Column("addictive_id")]
         [Key]
@@ -21,11 +21,11 @@ namespace Uva.Allergie.Data.Entities
         [Column("same_as")]
         public string SameAs { get; set; }
         [Column("created_on")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
         [Column("created_by")]
         public string CreatedBy { get; set; }
         [Column("modified_on")]
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         [Column("modified_by")]
         public string ModifiedBy { get; set; }
     }

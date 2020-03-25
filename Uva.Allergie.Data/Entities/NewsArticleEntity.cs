@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Uva.Allergie.Data.Entities
 {
     [Table("articles", Schema = "allergie_dev")]
-    public class NewsArticleEntity
+    public class NewsArticleEntity : IAuditable
     {
         [Column("article_id")]
         [Key]
@@ -23,15 +23,15 @@ namespace Uva.Allergie.Data.Entities
         [Column("url_to_image")]
         public string UrlToImage { get; set; }
         [Column("published_at")]
-        public DateTime PublishedAt { get; set; }
+        public DateTime? PublishedAt { get; set; }
         [Column("content")]
         public string Content { get; set; }
         [Column("created_on")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
         [Column("created_by")]
         public string CreatedBy { get; set; }
         [Column("modified_on")]
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         [Column("modified_by")]
         public string ModifiedBy { get; set; }
     }

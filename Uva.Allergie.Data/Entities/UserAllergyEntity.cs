@@ -14,11 +14,11 @@ namespace Uva.Allergie.Data.Entities
         public int AllergyId { get; set; }
         public virtual AllergyEntity Allergy { get; set; }
         [Column("created_on")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
         [Column("created_by")]
         public string CreatedBy { get; set; }
         [Column("modified_on")]
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         [Column("modified_by")]
         public string ModifiedBy { get; set; }
     }

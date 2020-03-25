@@ -19,7 +19,6 @@ namespace Uva.Allergie.Common.Models
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string Type { get; set; }
-        public List<string> Allergens { get; set; }
     }
 
     public class ProductInfo

@@ -17,10 +17,12 @@ namespace Uva.Allergie.Application
     {
         private readonly IAllergieDbContext _dbContext;
         private readonly IAllergyAppService _allergyAppService;
-        public ProductAppService(IAllergieDbContext dbContext, IAllergyAppService allergyAppService)
+        private readonly IUserAppService _userAppService;
+        public ProductAppService(IAllergieDbContext dbContext, IAllergyAppService allergyAppService, IUserAppService userAppService)
         {
             _dbContext = dbContext;
             _allergyAppService = allergyAppService;
+            _userAppService = userAppService;
         }
         public async Task<BaseOutput<object>> CreateProduct(string product)
         {
@@ -166,6 +168,15 @@ namespace Uva.Allergie.Application
                     Payload = productInfo.Payload
                 };
             }
+            //var user = await _userAppService.GetUserByUid(UserUid);
+            //if(!user.IsSuccessful)
+            //    return new BaseOutput<object>
+            //    {
+            //        IsSuccessful = productInfo.IsSuccessful,
+            //        Message = productInfo.Message,
+            //        Payload = productInfo.Payload
+            //    };
+            //Todo: add user info
 
             var userAllergies = await _allergyAppService.GetUserAllergies(UserUid);
             if (!userAllergies.IsSuccessful)

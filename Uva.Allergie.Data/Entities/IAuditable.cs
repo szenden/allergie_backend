@@ -8,7 +8,7 @@ namespace Uva.Allergie.Data.Entities
     {
         /// <summary>Gets or sets the date.</summary>
         /// <value>The date.</value>
-        DateTime CreatedOn { get; set; }
+        DateTime? CreatedOn { get; set; }
 
         /// <summary>Gets or sets the name.</summary>
         /// <value>The name.</value>
@@ -16,7 +16,7 @@ namespace Uva.Allergie.Data.Entities
 
         /// <summary>Gets or sets the date.</summary>
         /// <value>The date.</value>
-        DateTime ModifiedOn { get; set; }
+        DateTime? ModifiedOn { get; set; }
 
         /// <summary>Gets or sets the name.</summary>
         /// <value>The name.</value>
