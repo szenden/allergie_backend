@@ -42,24 +42,27 @@ namespace Uva.Allergie.WebApi.Controllers
                     Payload = "test"
                 };
             }
-            //first check for product in db
-            var getProduct = await _productAppService.GetProductByBarcode(input.Barcode);
-            if (getProduct.IsSuccessful)
-                return getProduct;
-
-            //get product from openfood
-            var url = $"{_appSettings.Service.ProductApi}/api/v0/product/{input.Barcode}.json";
-            var getProductInfo = await _webServiceInvoker.Get(url);
-            var productStr = await getProductInfo.Content.ReadAsStringAsync();
-            var saveProduct = await _productAppService.CreateProduct(productStr);
-
-            if (saveProduct.IsSuccessful)
+            var checkProduct = await _productAppService.ProductExists(input.Barcode);
+            if (!checkProduct.Payload)
             {
-                getProduct = await _productAppService.GetProductByBarcode(input.Barcode);
+                //get product from openfood
+                var url = $"{_appSettings.Service.ProductApi}/api/v0/product/{input.Barcode}.json";
+                var getProductInfo = await _webServiceInvoker.Get(url);
+                var productStr = await getProductInfo.Content.ReadAsStringAsync();
+                var saveProduct = await _productAppService.CreateProduct(productStr);
+                if (!saveProduct.IsSuccessful)
+                    return saveProduct;
+            }
+
+            //first check for product in db
+            if (string.IsNullOrWhiteSpace(input.UserUid))
+            {
+                var getProduct = await _productAppService.GetProductByBarcode(input.Barcode);
                 return getProduct;
             }
 
-            return saveProduct;
+            var getUserProduct = await _productAppService.GetProductByBarcodeAndUserUid(input.UserUid,input.Barcode);
+            return getUserProduct;
         }
 
     }

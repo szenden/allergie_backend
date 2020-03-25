@@ -61,16 +61,16 @@ namespace Uva.Allergie.Application
             };
         }
 
-        public async Task<BaseOutput<object>> GetUserAllergies(string uid)
+        public async Task<BaseOutput<List<Allergy>>> GetUserAllergies(string uid)
         {
             var user = await _dbContext.Users
                 .Where(u => u.UserUID == uid).SingleOrDefaultAsync();
             if(user == null)
-                return new BaseOutput<object>
+                return new BaseOutput<List<Allergy>>
                 {
                     IsSuccessful = false,
                     Message = $"User with uid = {uid} not found",
-                    Payload = ""
+                    Payload = null
                 };
 
             var userAllergyEnt = await _dbContext.UserAllergies
@@ -88,11 +88,11 @@ namespace Uva.Allergie.Application
                     u.isChecked = true;
             });
 
-            return new BaseOutput<object>
+            return new BaseOutput<List<Allergy>>
             {
                 IsSuccessful = true,
                 Message = "Allegies found",
-                Payload = allergies
+                Payload = allergies.Take(20).ToList()
             };
         }
 

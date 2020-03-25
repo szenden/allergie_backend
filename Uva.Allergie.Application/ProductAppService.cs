@@ -16,9 +16,11 @@ namespace Uva.Allergie.Application
     public class ProductAppService : IProductAppService
     {
         private readonly IAllergieDbContext _dbContext;
-        public ProductAppService(IAllergieDbContext dbContext)
+        private readonly IAllergyAppService _allergyAppService;
+        public ProductAppService(IAllergieDbContext dbContext, IAllergyAppService allergyAppService)
         {
             _dbContext = dbContext;
+            _allergyAppService = allergyAppService;
         }
         public async Task<BaseOutput<object>> CreateProduct(string product)
         {
@@ -150,9 +152,66 @@ namespace Uva.Allergie.Application
             };
         }
 
+        public async Task<BaseOutput<object>> GetProductByBarcodeAndUserUid(string UserUid, string barcode)
+        {
+            var productInfo = await GetProductByBarcode(barcode);
+            var productInfoStr = JsonConvert.SerializeObject(productInfo);
+            var productInfoDes = JsonConvert.DeserializeObject<BaseOutput<ProductOutput>>(productInfoStr);
+
+            if (!productInfo.IsSuccessful)
+            {
+                return new BaseOutput<object> { 
+                    IsSuccessful = productInfo.IsSuccessful,
+                    Message = productInfo.Message,
+                    Payload = productInfo.Payload
+                };
+            }
+
+            var userAllergies = await _allergyAppService.GetUserAllergies(UserUid);
+            if (!userAllergies.IsSuccessful)
+                return new BaseOutput<object>
+                {
+                    IsSuccessful = productInfo.IsSuccessful,
+                    Message = productInfo.Message,
+                    Payload = productInfo.Payload
+                };
+
+            userAllergies.Payload.RemoveAll(u => !u.isChecked);
+
+            productInfoDes.Payload.UserAllergens = new List<AllergyOutput>();
+            productInfoDes.Payload.Allergens.ForEach(u =>
+            {
+                if (userAllergies.Payload.Any(a => a.AllergyId == u.AllergyId))
+                {
+                    productInfoDes.Payload.UserAllergens.Add(u);
+                }
+            });
+
+            return new BaseOutput<object>
+            {
+                IsSuccessful = productInfoDes.IsSuccessful,
+                Message = productInfoDes.Message,
+                Payload = productInfoDes.Payload
+            };
+        }
+
         public Task<BaseOutput<object>> GetProductById(long id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<BaseOutput<bool>> ProductExists(string barcode)
+        {
+            var product = await _dbContext.Products
+                .Where(a => a.Barcode == barcode)
+                .FirstOrDefaultAsync();
+
+            return new BaseOutput<bool>
+            {
+                IsSuccessful = (product == null) ? false : true,
+                Message = $"product with barcode = {barcode} info.",
+                Payload = (product == null) ? false : true
+            };
         }
 
         public Task<BaseOutput<object>> UpdateProduct(long id, string product)

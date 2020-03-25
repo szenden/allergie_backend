@@ -9,6 +9,7 @@ namespace Uva.Allergie.Common.Models
         public List<IngredientOutput> Ingredients { get; set; }
         public List<AdditiveOutput> Additives { get; set; }
         public List<AllergyOutput> Allergens { get; set; }
+        public List<AllergyOutput> UserAllergens { get; set; }
 
     }
 
