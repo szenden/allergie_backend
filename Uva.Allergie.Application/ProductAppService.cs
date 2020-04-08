@@ -138,7 +138,7 @@ namespace Uva.Allergie.Application
             var wikiAllergens = await _dbContext.WikiAllergies.ToListAsync();
             foreach (var wikiAllergy in wikiAllergens)
             {
-                var selected = productInfo.Allergens.Where(a => a.Name.Contains(wikiAllergy.Name)).ToList();
+                var selected = productInfo.Allergens.Where(a => a.Name.Contains(wikiAllergy.Name.ToLower())).ToList();
                 selected.ForEach(a =>
                 {
                     a.PotentialReactions = wikiAllergy.PotentialReactions;
